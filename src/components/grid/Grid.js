@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Tile from '../tile'
+import Tile from '../tile';
+import './Grid.css'
+import Tilerow from '../tilerow'
 
 export default function Grid (props) {
   //each tile -> have function to set alive on click
@@ -21,20 +23,38 @@ export default function Grid (props) {
     } while (numOfRows > 0);
   }, [props.tileNum])
 
-  const tiles = Object.values(grid).map(function(row, index) {
-    row.map(function(tileNumber, i) {
-      return (
-        <Tile 
-          key={i.toString() + index.toString()}
-
-        />
-      )
-    })
+  // const tiles = grid.map(function(row, index) {
+  //   console.log(row)
+  //   return row.map(function(tile, i) {
+  //     return (
+  //       <Tile 
+  //         key={i.toString() + index.toString()}
+  //         row={index}
+  //         index={i}
+  //         setGrid={setGrid}
+  //         grid={grid}
+  //         status={tile.isAlive}
+  //       />
+  //     )
+  //   })
+  // })
+  const tilerows = grid.map(function(row, index) {
+    return (<Tilerow 
+      key={index}
+      row={index + 1}
+      tiles={row}
+      setGrid={setGrid}
+      grid={grid}
+    />  
+    )
   })
+  console.log('tiles', tilerows)
   setTimeout(function(){ console.log("Hello", grid); }, 2000);
   return (
-    <ul>
-      {tiles}
-    </ul>
+    <div className="grid-container">
+      <ul>
+      {tilerows}
+      </ul>
+    </div>
   )
 }
