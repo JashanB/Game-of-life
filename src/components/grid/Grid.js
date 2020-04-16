@@ -5,23 +5,18 @@ export default function Grid (props) {
   //each tile -> have function to set alive on click
   //each tile should also have ability to change the grid
   //set to alive function here that changes grid state 
-  const [grid, setGrid] = useState({});
+  const [grid, setGrid] = useState([]);
   let numOfRows = props.tileNum;
   useEffect(() => {
     do {
       let arrayOfTiles = [];
-      for (let i = 0; i <= props.tileNum; i++) {
+      for (let i = 1; i <= props.tileNum; i++) {
         arrayOfTiles.push({
           isAlive: false,
           index: i
         });
       }
-      // let gridArray = grid.state;
-      // setGrid(state => (...gridArray, arrayOfTiles))
-      setGrid(state => ({
-        ...state,
-        numOfRows: arrayOfTiles
-      }))
+      setGrid(state => [...state, arrayOfTiles])
       numOfRows --
     } while (numOfRows > 0);
   }, [props.tileNum])
@@ -31,12 +26,12 @@ export default function Grid (props) {
       return (
         <Tile 
           key={i.toString() + index.toString()}
-          
+
         />
       )
     })
   })
-  setTimeout(function(){ console.log("Hello", grid); }, 3000);
+  setTimeout(function(){ console.log("Hello", grid); }, 2000);
   return (
     <ul>
       {tiles}
