@@ -2,27 +2,41 @@ import React, { useEffect, useState } from 'react'
 import Tile from '../tile'
 
 export default function Grid (props) {
-  //grid i want to return Tile rows based on number passed down 
-  //will require n^2 loop
-  const [grid, setGrid] = useState();
+  //each tile -> have function to set alive on click
+  //each tile should also have ability to change the grid
+  //set to alive function here that changes grid state 
+  const [grid, setGrid] = useState({});
   let numOfRows = props.tileNum;
-  do {
-    let arrayOfTiles = [];
-    setGrid(state => ({numOfRows = []}))
-    for (let i = 0; i <= props.tileNum; i++) {
-      arrayOfTiles.push()
-    }
-  } while (numOfRows > 0);
-  const tiles = grid.map(function(row, index) {
-    row.map(function(tile, i) {
+  useEffect(() => {
+    do {
+      let arrayOfTiles = [];
+      for (let i = 0; i <= props.tileNum; i++) {
+        arrayOfTiles.push({
+          isAlive: false,
+          index: i
+        });
+      }
+      // let gridArray = grid.state;
+      // setGrid(state => (...gridArray, arrayOfTiles))
+      setGrid(state => ({
+        ...state,
+        numOfRows: arrayOfTiles
+      }))
+      numOfRows --
+    } while (numOfRows > 0);
+  }, [props.tileNum])
+
+  const tiles = Object.values(grid).map(function(row, index) {
+    row.map(function(tileNumber, i) {
       return (
         <Tile 
           key={i.toString() + index.toString()}
-
+          
         />
       )
     })
   })
+  setTimeout(function(){ console.log("Hello", grid); }, 3000);
   return (
     <ul>
       {tiles}

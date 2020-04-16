@@ -14,10 +14,10 @@ function App() {
         tileNum={tileNum}
         setTileNum={setTileNum}
       />
-      <Timer
+      {/* <Timer
         timer={timer}
         setTimer={setTimer}
-      />
+      /> */}
     </div>
   );
 }
