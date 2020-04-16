@@ -8,11 +8,23 @@ import Grid from '../grid';
 function App() {
   const [tileNum, setTileNum] = useState(10);
   const [timer, setTimer] = useState(2);
+  const [aliveCount, setAliveCount] = useState(0);
+  const [ifstarted, setIfStarted] = useState(false);
+
+  const handleClick = () => {
+    if (aliveCount >= 5) {
+      setIfStarted(state => (true));
+    }
+  }
   return (
     <div className="App">
+      <button onClick={() => handleClick()}>Start!</button>
+      <span>Number Alive: {aliveCount}</span>
       <Grid
         tileNum={tileNum}
         setTileNum={setTileNum}
+        aliveCount={aliveCount}
+        setAliveCount={setAliveCount}
       />
       {/* <Timer
         timer={timer}

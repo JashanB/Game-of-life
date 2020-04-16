@@ -29,8 +29,10 @@ export default function Grid(props) {
          return col.map(function(item, j) {
           if (j === index) {
             if (item.isAlive) {
+              props.setAliveCount(state => state -= 1)
               return {isAlive: false, index: j}
             } else {
+              props.setAliveCount(state => state += 1)
               return {isAlive: true, index: j}
             }
           } else {
@@ -42,6 +44,7 @@ export default function Grid(props) {
       }
     })
     setGrid(state => (newGrid));
+    // props.setAliveCount(state => state += 1)
     // console.log(event)
     // event.target.style.color = 'black';
   }

@@ -35,8 +35,8 @@ export default function TileColumn(props) {
     )
   })
   return (
-    <>
+    <div className="tile-column">
       {tiles}
-    </>
+    </div>
   )
 }
