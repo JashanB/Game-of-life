@@ -1,6 +1,23 @@
 .tile {
-  height: 40px;
-  width: 40px;
-  margin: 10px;
+  height: 5%;
+  width: 30%;
+  margin: 5%;
   /* back10ound-color: black; */
+  background-color: black;
+}
+
+.tile-button {
+  /* width: 100%;
+  height: 100%; */
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+
+.tile-button-alive {
+  /* width: 100%;
+  height: 100%; */
+  height: 100%;
+  width: 100%;
+  background-color: white;
 }

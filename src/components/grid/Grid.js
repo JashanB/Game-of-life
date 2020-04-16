@@ -23,42 +23,48 @@ export default function Grid(props) {
     } while (numOfRows > 0);
   }, [props.tileNum])
 
-  // const tiles = grid.map(function(row, index) {
-  //   console.log(row)
-  //   return row.map(function(tile, i) {
-  //     return (
-  //       <Tile 
-  //         key={i.toString() + index.toString()}
-  //         row={index}
-  //         index={i}
-  //         setGrid={setGrid}
-  //         grid={grid}
-  //         status={tile.isAlive}
-  //       />
-  //     )
-  //   })
-  // })
+  const setAlive = (column, index) => {
+    const newGrid = grid.map(function(col, i) {
+      if (column === i) {
+         return col.map(function(item, j) {
+          if (j === index) {
+            if (item.isAlive) {
+              return {isAlive: false, index: j}
+            } else {
+              return {isAlive: true, index: j}
+            }
+          } else {
+            return item
+          }
+        })
+      } else {
+        return col;
+      }
+    })
+    setGrid(state => (newGrid));
+    // console.log(event)
+    // event.target.style.color = 'black';
+  }
+
   const tilecolumns = grid.map(function (row, index) {
     return (
       <div className="tile-row">
         <TileColumn
           key={index}
-          row={index + 1}
+          column={index}
           tiles={row}
           setGrid={setGrid}
           grid={grid}
           square={props.tileNum}
+          setAlive={setAlive}
         />
       </div>
     )
   })
-  console.log('tiles', tilecolumns)
   setTimeout(function () { console.log("Hello", grid); }, 2000);
   return (
     <ul className="grid-container">
-      {/* <ul> */}
       {tilecolumns}
-      {/* </ul> */}
     </ul>
   )
 }
