@@ -23,7 +23,7 @@ export default function Tile(props) {
         }
         props.grid[column + 1][i].isAlive ? count += 1 : count += 0
       } else if (bordering <= 5) {
-        if (props.grid[column - 1][i] && props.grid[column - 1][i].isAlive) {
+        if (props.grid[column - 1] && props.grid[column - 1][i] && props.grid[column - 1][i].isAlive) {
           count += 1;
         }
         if (i !== row) {
@@ -31,7 +31,7 @@ export default function Tile(props) {
             count += 1;
           }
         }
-        if (props.grid[column + 1][i] && props.grid[column + 1][i].isAlive) {
+        if (props.grid[column +1] && props.grid[column + 1][i] && props.grid[column + 1][i].isAlive) {
           count += 1;
         }
       }
@@ -41,22 +41,19 @@ export default function Tile(props) {
   if (props.ifStarted) {
     setInterval(function () {
       let numberAlive = countBox(col, row, borderingSquares);
+      console.log('number', numberAlive)
       if (numberAlive < 2 && props.status === true) {
-        props.setAlive(col, row);
+        props.setDead(col, row);
       }
       if (numberAlive >= 4 && props.status === true) {
-        props.setAlive(col, row);
+        props.setDead(col, row);
       }
       if (numberAlive === 3 && props.status === false) {
         props.setAlive(col, row);
       }
-    }, 3000);
+    }, 1000);
   }
-  // if (props.grid[col][row].isAlive) {
-  //   console.log('here', props.grid[col][row])
-
-  // }
-
+  
   return (
     <div className="tile">
       <button className={className} onClick={() => props.setAlive(col, row)}></button>

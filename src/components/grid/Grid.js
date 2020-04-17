@@ -28,22 +28,38 @@ export default function Grid(props) {
       if (column === i) {
          return col.map(function(item, j) {
           if (j === index) {
-            if (item.isAlive) {
-              props.setAliveCount(state => state -= 1)
-              return {isAlive: false, index: j}
-            } else {
+            if (item.isAlive === false) {
               props.setAliveCount(state => state += 1)
               return {isAlive: true, index: j}
             }
           } else {
-            return item
+            return item;
           }
         })
       } else {
         return col;
       }
     })
-    console.log('index', column, index)
+    setGrid(state => (newGrid));
+  }
+
+  const setDead = (column, index) => {
+    const newGrid = grid.map(function(col, i) {
+      if (column === i) {
+         return col.map(function(item, j) {
+          if (j === index) {
+            if (item.isAlive) {
+              props.setAliveCount(state => state -= 1)
+              return {isAlive: false, index: j}
+            } 
+          } else {
+            return item;
+          }
+        })
+      } else {
+        return col;
+      }
+    })
     setGrid(state => (newGrid));
   }
 
@@ -58,6 +74,7 @@ export default function Grid(props) {
           grid={grid}
           square={props.tileNum}
           setAlive={setAlive}
+          setDead={setDead}
           max={props.tileNum - 1}
           ifStarted={props.ifStarted}
         />
