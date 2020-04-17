@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import './Tile.css'
 
 export default function Tile(props) {
+  const [numAlive, setNumAlive] = useState(0);
   let className = "tile-button";
-  if (props.status === true) {
+  if (props.status) {
     className += '-alive'
   }
   let borderingSquares = 8
@@ -13,36 +14,27 @@ export default function Tile(props) {
   if (col === 0 || row === 0 || col === props.max || row === props.max) {
     borderingSquares = 5;
   }
-  const countBox = (column, row, bordering) => {
-    let count = 0;
-    for (let i = row - 1; i < row + 2; i++) {
-      if (bordering === 8) {
-        props.grid[column - 1][i].isAlive ? count += 1 : count += 0
-        if (i !== row) {
-          props.grid[column][i].isAlive ? count += 1 : count += 0
-        }
-        props.grid[column + 1][i].isAlive ? count += 1 : count += 0
-      } else if (bordering <= 5) {
-        if (props.grid[column - 1] && props.grid[column - 1][i] && props.grid[column - 1][i].isAlive) {
-          count += 1;
-        }
-        if (i !== row) {
-          if (props.grid[column][i] && props.grid[column][i].isAlive) {
-            count += 1;
-          }
-        }
-        if (props.grid[column +1] && props.grid[column + 1][i] && props.grid[column + 1][i].isAlive) {
-          count += 1;
-        }
-      }
-    }
-    return count;
+  if ((col === 0 || col === props.max) && (row === 0 || row === props.max)){
+    borderingSquares = 4;
   }
+
+  // useEffect(() => {
+  //   let newNumber = props.countBox(col, row, borderingSquares);
+  //   // console.log('new', newNumber)
+  //   setNumAlive(state => (newNumber));
+  // }, [props.grid])
+
+  const handleClick = (column, row, status) => {
+    // let count = countBox(column, row, 8)
+    // console.log('click count', count)
+    status ? props.setDead(column, row) : props.setAlive(column, row)
+  }
+
   if (props.ifStarted) {
     setInterval(function () {
-      let numberAlive = countBox(col, row, borderingSquares);
-      console.log('number', numberAlive)
-      if (numberAlive < 2 && props.status === true) {
+      let numberAlive = props.countBox(col, row, borderingSquares);
+      console.log('interval', numberAlive, col, row)
+      if (numberAlive < 2 && numberAlive >= 0 && props.status === true) {
         props.setDead(col, row);
       }
       if (numberAlive >= 4 && props.status === true) {
@@ -51,12 +43,26 @@ export default function Tile(props) {
       if (numberAlive === 3 && props.status === false) {
         props.setAlive(col, row);
       }
-    }, 1000);
+    }, 3000);
   }
-  
+
+  // if (props.ifStarted) {
+  //   setInterval(function () {
+  //     if (numAlive < 2 && props.status === true) {
+  //       props.setDead(col, row);
+  //     }
+  //     if (numAlive >= 4 && props.status === true) {
+  //       props.setDead(col, row);
+  //     }
+  //     if (numAlive === 3 && props.status === false) {
+  //       props.setAlive(col, row);
+  //     }
+  //   }, 5000);
+  // }
+
   return (
     <div className="tile">
-      <button className={className} onClick={() => props.setAlive(col, row)}></button>
+      <button className={className} onClick={() => handleClick(col, row, props.status)}></button>
     </div>
   )
 }

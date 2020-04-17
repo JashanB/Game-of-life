@@ -14,8 +14,10 @@ export default function TileColumn(props) {
         status={tile.isAlive}
         square={props.square}
         setAlive={props.setAlive}
+        setDead={props.setDead}
         max={props.max}
         ifStarted={props.ifStarted}
+        countBox={props.countBox}
       />
     )
   })

@@ -6,7 +6,7 @@ import Grid from '../grid';
 //set timer 
 
 function App() {
-  const [tileNum, setTileNum] = useState(50);
+  const [tileNum, setTileNum] = useState(5);
   const [timer, setTimer] = useState(2);
   const [aliveCount, setAliveCount] = useState(0);
   const [ifStarted, setIfStarted] = useState(false);

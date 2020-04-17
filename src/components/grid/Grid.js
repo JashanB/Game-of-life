@@ -31,6 +31,8 @@ export default function Grid(props) {
             if (item.isAlive === false) {
               props.setAliveCount(state => state += 1)
               return {isAlive: true, index: j}
+            } else {
+              return item
             }
           } else {
             return item;
@@ -40,7 +42,8 @@ export default function Grid(props) {
         return col;
       }
     })
-    setGrid(state => (newGrid));
+    console.log('set alive', column, index)
+    setGrid(state => newGrid);
   }
 
   const setDead = (column, index) => {
@@ -51,7 +54,9 @@ export default function Grid(props) {
             if (item.isAlive) {
               props.setAliveCount(state => state -= 1)
               return {isAlive: false, index: j}
-            } 
+            } else {
+              return item
+            }
           } else {
             return item;
           }
@@ -60,12 +65,38 @@ export default function Grid(props) {
         return col;
       }
     })
-    setGrid(state => (newGrid));
+    console.log('set dead', column, index)
+    setGrid(state => newGrid);
+  }
+
+  const countBox = (column, row, bordering) => {
+    let count = 0;
+    for (let i = row - 1; i < row + 2; i++) {
+      if (bordering === 8) {
+        grid[column - 1][i].isAlive ? count += 1 : count += 0
+        if (i !== row) {
+          grid[column][i].isAlive ? count += 1 : count += 0
+        }
+        grid[column + 1][i].isAlive ? count += 1 : count += 0
+      } else if (bordering <= 5) {
+        if (grid[column - 1] && grid[column - 1][i] && grid[column - 1][i].isAlive) {
+          count += 1;
+        }
+        if (i !== row) {
+          if (grid[column][i] && grid[column][i].isAlive) {
+            count += 1;
+          }
+        }
+        if (grid[column +1] && grid[column + 1][i] && grid[column + 1][i].isAlive) {
+          count += 1;
+        }
+      }
+    }
+    return count;
   }
 
   const tilecolumns = grid.map(function (row, index) {
     return (
-      // <div className="tile-row">
         <TileColumn
           key={index}
           column={index}
@@ -77,11 +108,10 @@ export default function Grid(props) {
           setDead={setDead}
           max={props.tileNum - 1}
           ifStarted={props.ifStarted}
+          countBox={countBox}
         />
-      // </div>
     )
   })
-  setTimeout(function () { console.log("Hello", grid); }, 2000);
   return (
     <ul className="grid-container">
       {tilecolumns}
