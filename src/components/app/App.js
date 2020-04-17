@@ -9,7 +9,7 @@ function App() {
   const [tileNum, setTileNum] = useState(50);
   const [timer, setTimer] = useState(2);
   const [aliveCount, setAliveCount] = useState(0);
-  const [ifstarted, setIfStarted] = useState(false);
+  const [ifStarted, setIfStarted] = useState(false);
 
   const handleClick = () => {
     if (aliveCount >= 5) {
@@ -17,6 +17,7 @@ function App() {
       setIfStarted(state => (true));
     }
   }
+
   return (
     <div className="App">
       <button onClick={() => handleClick()}>Start!</button>
@@ -26,6 +27,7 @@ function App() {
         setTileNum={setTileNum}
         aliveCount={aliveCount}
         setAliveCount={setAliveCount}
+        ifStarted={ifStarted}
       />
       {/* <Timer
         timer={timer}

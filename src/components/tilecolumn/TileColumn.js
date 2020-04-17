@@ -7,7 +7,7 @@ export default function TileColumn(props) {
     return (
       <Tile
         key={index}
-        index={index}
+        row={index}
         column={props.column}
         setGrid={props.setGrid}
         grid={props.grid}

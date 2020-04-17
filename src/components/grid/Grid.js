@@ -12,7 +12,7 @@ export default function Grid(props) {
   useEffect(() => {
     do {
       let arrayOfTiles = [];
-      for (let i = 1; i <= props.tileNum; i++) {
+      for (let i = 0; i < props.tileNum; i++) {
         arrayOfTiles.push({
           isAlive: false,
           index: i
@@ -43,10 +43,8 @@ export default function Grid(props) {
         return col;
       }
     })
+    console.log('index', column, index)
     setGrid(state => (newGrid));
-    // props.setAliveCount(state => state += 1)
-    // console.log(event)
-    // event.target.style.color = 'black';
   }
 
   const tilecolumns = grid.map(function (row, index) {
@@ -60,7 +58,7 @@ export default function Grid(props) {
           grid={grid}
           square={props.tileNum}
           setAlive={setAlive}
-          max={props.tileNum}
+          max={props.tileNum - 1}
           ifStarted={props.ifStarted}
         />
       // </div>
