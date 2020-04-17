@@ -51,7 +51,7 @@ export default function Grid(props) {
 
   const tilecolumns = grid.map(function (row, index) {
     return (
-      <div className="tile-row">
+      // <div className="tile-row">
         <TileColumn
           key={index}
           column={index}
@@ -60,8 +60,10 @@ export default function Grid(props) {
           grid={grid}
           square={props.tileNum}
           setAlive={setAlive}
+          max={props.tileNum}
+          ifStarted={props.ifStarted}
         />
-      </div>
+      // </div>
     )
   })
   setTimeout(function () { console.log("Hello", grid); }, 2000);
