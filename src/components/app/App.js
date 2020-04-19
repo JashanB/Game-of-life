@@ -2,25 +2,36 @@ import React, { useEffect, useState } from 'react'
 import './App.css';
 import Grid from '../grid';
 
-//set tile count to state (10 - then multiply by itself to form square)
-//set timer 
-
 function App() {
-  const [tileNum, setTileNum] = useState(5);
-  const [timer, setTimer] = useState(2);
+  const [tileNum, setTileNum] = useState(25);
+  const [timer, setTimer] = useState(3);
   const [aliveCount, setAliveCount] = useState(0);
   const [ifStarted, setIfStarted] = useState(false);
 
-  const handleClick = () => {
+  const handleStart = () => {
     if (aliveCount >= 5) {
-      console.log('YO')
-      setIfStarted(state => (true));
+      if (ifStarted) {
+        setIfStarted(state => (false));
+      } else {
+        setIfStarted(state => (true));
+      }
     }
   }
+  useEffect(() => {
+    if (aliveCount <= 0) {
+      setIfStarted(state => (false));
+    }
+  }, [aliveCount])
 
   return (
     <div className="App">
-      <button onClick={() => handleClick()}>Start!</button>
+      <button onClick={() => setTileNum(state => state -= 1)}> - </button>
+      <span># of tiles in row: {tileNum} </span>
+      <button onClick={() => setTileNum(state => state += 1)}> + </button>
+      <button onClick={() => setTimer(state => state -= 1)}> - </button>
+      <span>Timer: {timer} sec </span>
+      <button onClick={() => setTimer(state => state += 1)}> + </button>
+      <button onClick={() => handleStart()}>Start!</button>
       <span>Number Alive: {aliveCount}</span>
       <Grid
         tileNum={tileNum}
@@ -28,11 +39,8 @@ function App() {
         aliveCount={aliveCount}
         setAliveCount={setAliveCount}
         ifStarted={ifStarted}
-      />
-      {/* <Timer
         timer={timer}
-        setTimer={setTimer}
-      /> */}
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './TileColumn.css'
 import Tile from '../tile'
 
@@ -18,6 +18,8 @@ export default function TileColumn(props) {
         max={props.max}
         ifStarted={props.ifStarted}
         countBox={props.countBox}
+        rules={props.rules}
+        timer={props.timer}
       />
     )
   })

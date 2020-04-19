@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Tile from '../tile';
 import './Grid.css'
 import TileColumn from '../tilecolumn'
 
 export default function Grid(props) {
-  //each tile -> have function to set alive on click
-  //each tile should also have ability to change the grid
-  //set to alive function here that changes grid state 
-  // const [grid, setGrid] = useState([]);
   const [grid, setGrid] = useState({});
 
   useEffect(() => {
@@ -24,21 +19,26 @@ export default function Grid(props) {
     setGrid(state => (obj))
   }, [props.tileNum])
 
-  setTimeout(function () { console.log('grid', grid) }, 2000)
   const setAlive = (column, index) => {
     let columnArray = grid[column];
-    console.log('set alive', columnArray)
-    columnArray[index].isAlive = true;
-    setGrid(state => ({...state, [column]: columnArray}))
-    props.setAliveCount(state => state += 1)
+    if (columnArray[index].isAlive === false) {
+      columnArray[index].isAlive = true;
+      setGrid(state => ({ ...state, [column]: columnArray }))
+      if (props.aliveCount < (props.tileNum * props.tileNum)) {
+        props.setAliveCount(state => state += 1)
+      }
+    }
   }
 
   const setDead = (column, index) => {
     let columnArray = grid[column];
-    console.log('set dead', columnArray)
-    columnArray[index].isAlive = false;
-    setGrid(state => ({...state, [column]: columnArray}))
-    props.setAliveCount(state => state -= 1)
+    if (columnArray[index].isAlive) {
+      columnArray[index].isAlive = false;
+      setGrid(state => ({ ...state, [column]: columnArray }))
+      if (props.aliveCount > 0) {
+        props.setAliveCount(state => state -= 1)
+      }
+    }
   }
 
   const countBox = (column, row, bordering) => {
@@ -66,7 +66,22 @@ export default function Grid(props) {
     }
     return count;
   }
-  // setTimeout(function () { console.log(grid) }, 2000)
+
+  const rules = (timer, col, index, bordering, status) => {
+    let numberAlive = countBox(col, index, bordering);
+    setInterval(function () {
+      if (numberAlive < 2 && numberAlive >= 0 && status === true) {
+        setDead(col, index);
+      }
+      if (numberAlive >= 4 && numberAlive <= 8 && status === true) {
+        setDead(col, index);
+      }
+      if (numberAlive === 3 && status === false) {
+        setAlive(col, index);
+      }
+    }, timer)
+  }
+
   const tilecolumns = Object.values(grid).map(function (column, index) {
     return (
       <TileColumn
@@ -81,6 +96,8 @@ export default function Grid(props) {
         max={props.tileNum - 1}
         ifStarted={props.ifStarted}
         countBox={countBox}
+        rules={rules}
+        timer={props.timer}
       />
     )
   })
