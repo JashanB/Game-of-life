@@ -7,53 +7,59 @@ export default function Grid(props) {
   //each tile -> have function to set alive on click
   //each tile should also have ability to change the grid
   //set to alive function here that changes grid state 
-  const [grid, setGrid] = useState([]);
-  let numOfRows = props.tileNum;
+  // const [grid, setGrid] = useState([]);
+  const [grid, setGrid] = useState({});
+
   useEffect(() => {
-    do {
-      let arrayOfTiles = [];
-      for (let i = 0; i < props.tileNum; i++) {
-        arrayOfTiles.push({
+    let obj = {};
+    for (let i = 0; i < props.tileNum; i++) {
+      obj[i] = [];
+      for (let z = 0; z < props.tileNum; z++) {
+        obj[i].push({
           isAlive: false,
-          index: i
-        });
+          index: z
+        })
       }
-      setGrid(state => [...state, arrayOfTiles])
-      numOfRows--
-    } while (numOfRows > 0);
+    }
+    setGrid(state => (obj))
   }, [props.tileNum])
 
+  setTimeout(function () { console.log('grid', grid) }, 2000)
   const setAlive = (column, index) => {
-    const newGrid = grid.map(function(col, i) {
-      if (column === i) {
-         return col.map(function(item, j) {
-          if (j === index) {
-            if (item.isAlive === false) {
-              props.setAliveCount(state => state += 1)
-              return {isAlive: true, index: j}
-            } else {
-              return item
-            }
-          } else {
-            return item;
-          }
-        })
-      } else {
-        return col;
-      }
-    })
-    console.log('set alive', column, index)
-    setGrid(state => newGrid);
+    let columnArray = grid[column];
+    console.log('set alive', columnArray)
+    columnArray[index].isAlive = true;
+    setGrid(state => ({...state, [column]: columnArray}))
+    // const newGrid = grid.map(function (col, i) {
+    //   if (column === i) {
+    //     return col.map(function (item, j) {
+    //       if (j === index) {
+    //         if (item.isAlive === false) {
+    //           props.setAliveCount(state => state += 1)
+    //           return { isAlive: true, index: j }
+    //         } else {
+    //           return item
+    //         }
+    //       } else {
+    //         return item;
+    //       }
+    //     })
+    //   } else {
+    //     return col;
+    //   }
+    // })
+    // console.log('set alive', column, index)
+    // setGrid(state => newGrid);
   }
 
   const setDead = (column, index) => {
-    const newGrid = grid.map(function(col, i) {
+    const newGrid = grid.map(function (col, i) {
       if (column === i) {
-         return col.map(function(item, j) {
+        return col.map(function (item, j) {
           if (j === index) {
             if (item.isAlive) {
               props.setAliveCount(state => state -= 1)
-              return {isAlive: false, index: j}
+              return { isAlive: false, index: j }
             } else {
               return item
             }
@@ -87,29 +93,29 @@ export default function Grid(props) {
             count += 1;
           }
         }
-        if (grid[column +1] && grid[column + 1][i] && grid[column + 1][i].isAlive) {
+        if (grid[column + 1] && grid[column + 1][i] && grid[column + 1][i].isAlive) {
           count += 1;
         }
       }
     }
     return count;
   }
-
-  const tilecolumns = grid.map(function (row, index) {
+  setTimeout(function () { console.log(grid) }, 2000)
+  const tilecolumns = Object.values(grid).map(function (column, index) {
     return (
-        <TileColumn
-          key={index}
-          column={index}
-          tiles={row}
-          setGrid={setGrid}
-          grid={grid}
-          square={props.tileNum}
-          setAlive={setAlive}
-          setDead={setDead}
-          max={props.tileNum - 1}
-          ifStarted={props.ifStarted}
-          countBox={countBox}
-        />
+      <TileColumn
+        key={index}
+        column={index}
+        tiles={column}
+        setGrid={setGrid}
+        grid={grid}
+        square={props.tileNum}
+        setAlive={setAlive}
+        setDead={setDead}
+        max={props.tileNum - 1}
+        ifStarted={props.ifStarted}
+        countBox={countBox}
+      />
     )
   })
   return (
