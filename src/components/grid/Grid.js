@@ -30,49 +30,15 @@ export default function Grid(props) {
     console.log('set alive', columnArray)
     columnArray[index].isAlive = true;
     setGrid(state => ({...state, [column]: columnArray}))
-    // const newGrid = grid.map(function (col, i) {
-    //   if (column === i) {
-    //     return col.map(function (item, j) {
-    //       if (j === index) {
-    //         if (item.isAlive === false) {
-    //           props.setAliveCount(state => state += 1)
-    //           return { isAlive: true, index: j }
-    //         } else {
-    //           return item
-    //         }
-    //       } else {
-    //         return item;
-    //       }
-    //     })
-    //   } else {
-    //     return col;
-    //   }
-    // })
-    // console.log('set alive', column, index)
-    // setGrid(state => newGrid);
+    props.setAliveCount(state => state += 1)
   }
 
   const setDead = (column, index) => {
-    const newGrid = grid.map(function (col, i) {
-      if (column === i) {
-        return col.map(function (item, j) {
-          if (j === index) {
-            if (item.isAlive) {
-              props.setAliveCount(state => state -= 1)
-              return { isAlive: false, index: j }
-            } else {
-              return item
-            }
-          } else {
-            return item;
-          }
-        })
-      } else {
-        return col;
-      }
-    })
-    console.log('set dead', column, index)
-    setGrid(state => newGrid);
+    let columnArray = grid[column];
+    console.log('set dead', columnArray)
+    columnArray[index].isAlive = false;
+    setGrid(state => ({...state, [column]: columnArray}))
+    props.setAliveCount(state => state -= 1)
   }
 
   const countBox = (column, row, bordering) => {
@@ -100,7 +66,7 @@ export default function Grid(props) {
     }
     return count;
   }
-  setTimeout(function () { console.log(grid) }, 2000)
+  // setTimeout(function () { console.log(grid) }, 2000)
   const tilecolumns = Object.values(grid).map(function (column, index) {
     return (
       <TileColumn
