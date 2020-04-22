@@ -69,7 +69,6 @@ export default function Grid(props) {
 
   const rules = (timer, col, index, bordering, status) => {
     let numberAlive = countBox(col, index, bordering);
-    setInterval(function () {
       if (numberAlive < 2 && numberAlive >= 0 && status === true) {
         setDead(col, index);
       }
@@ -79,9 +78,7 @@ export default function Grid(props) {
       if (numberAlive === 3 && status === false) {
         setAlive(col, index);
       }
-    }, timer)
   }
-
   const tilecolumns = Object.values(grid).map(function (column, index) {
     return (
       <TileColumn

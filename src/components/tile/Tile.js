@@ -22,7 +22,9 @@ export default function Tile(props) {
   }
 
   if (props.ifStarted) {
-   props.rules(props.timer, col, row, borderingSquares, props.status)
+    setInterval(function() {
+      props.rules(props.timer, col, row, borderingSquares, props.status)
+    }, props.timer)
   }
 
   return (
