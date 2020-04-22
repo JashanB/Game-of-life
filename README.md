@@ -10,5 +10,8 @@ Select a minimum of 5 tiles and click Start.
 
 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-![](life.gif)
+![](life1.gif)
 
+Change number of tiles and set the interval.
+
+![](features.gif)
