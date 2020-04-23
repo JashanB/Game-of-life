@@ -1,6 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
 import Grid from '../grid';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+let obj = {};
+for (let i = 0; i < initialState.tileNum; i++) {
+  obj[i] = [];
+  for (let z = 0; z < initialState.tileNum; z++) {
+    obj[i].push({
+      isAlive: false,
+      index: z
+    })
+  }
+}
+
+const initialState = {
+  tileNum: 25,
+  timer: 3,
+  aliveCount: 0,
+  ifStarted: false,
+  grid: obj
+}
+
+function reducer (state = initialState, action) {
+  switch (action.type) {
+    case "PLUSTILES":
+      return {
+        ...state, tileNum: state.tileNum + 1
+      }
+  }
+}
 
 function App() {
   const [tileNum, setTileNum] = useState(25);
