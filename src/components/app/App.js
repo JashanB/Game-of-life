@@ -61,6 +61,10 @@ function reducer(state = initialState, action) {
       return {
         ...state, grid: {...state.grid, ...action.column}
       }
+    case "SETGRID":
+      return {
+        ...state, grid: action.grid
+      }
   }
 }
 const store = createStore(reducer);
@@ -84,6 +88,20 @@ function App() {
       setIfStarted(state => (false));
     }
   }, [aliveCount])
+
+  // useEffect(() => {
+  //   let obj = {};
+  //   for (let i = 0; i < props.tileNum; i++) {
+  //     obj[i] = [];
+  //     for (let z = 0; z < props.tileNum; z++) {
+  //       obj[i].push({
+  //         isAlive: false,
+  //         index: z
+  //       })
+  //     }
+  //   }
+  //   setGrid(state => (obj))
+  // }, [props.tileNum])
 
   return (
     <Provider className="App">

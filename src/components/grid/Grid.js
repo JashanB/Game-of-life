@@ -5,19 +5,32 @@ import TileColumn from '../tilecolumn'
 export default function Grid(props) {
   const [grid, setGrid] = useState({});
 
+  // useEffect(() => {
+  //   let obj = {};
+  //   for (let i = 0; i < props.tileNum; i++) {
+  //     obj[i] = [];
+  //     for (let z = 0; z < props.tileNum; z++) {
+  //       obj[i].push({
+  //         isAlive: false,
+  //         index: z
+  //       })
+  //     }
+  //   }
+  //   setGrid(state => (obj))
+  // }, [props.tileNum])
   useEffect(() => {
     let obj = {};
-    for (let i = 0; i < props.tileNum; i++) {
+    for (let i = 0; i < props.state.tileNum; i++) {
       obj[i] = [];
-      for (let z = 0; z < props.tileNum; z++) {
+      for (let z = 0; z < props.state.tileNum; z++) {
         obj[i].push({
           isAlive: false,
           index: z
         })
       }
     }
-    setGrid(state => (obj))
-  }, [props.tileNum])
+    dispatch({type: "SETGRID", grid: obj})
+  }, [props.state.tileNum])
 
   const setAlive = (column, index) => {
     let columnArray = grid[column];
