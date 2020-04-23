@@ -23,15 +23,47 @@ const initialState = {
   grid: obj
 }
 
-function reducer (state = initialState, action) {
+function reducer(state = initialState, action) {
   switch (action.type) {
     case "PLUSTILES":
       return {
         ...state, tileNum: state.tileNum + 1
+      };
+    case "MINUSTILES":
+      return {
+        ...state, tileNum: state.tileNum - 1
+      };
+    case "PLUSTIME":
+      return {
+        ...state, timer: state.timer + 1
+      };
+    case "MINUSTIME":
+      return {
+        ...state, timer: state.timer - 1
+      };
+    case "SETALIVE":
+      return {
+        ...state, aliveCount: state.aliveCount + 1
+      };
+    case "SETDEAD":
+      return {
+        ...state, aliveCount: state.aliveCount - 1
+      };
+    case "START":
+      return {
+        ...state, ifStarted: true
+      };
+    case "STOP":
+      return {
+        ...state, ifStarted: false
+      };
+    case "CHANGEGRID":
+      return {
+        ...state, grid: {...state.grid, ...action.column}
       }
   }
 }
-
+const store = createStore(reducer);
 function App() {
   const [tileNum, setTileNum] = useState(25);
   const [timer, setTimer] = useState(3);
@@ -54,7 +86,7 @@ function App() {
   }, [aliveCount])
 
   return (
-    <div className="App">
+    <Provider className="App">
       <button onClick={() => setTileNum(state => state -= 1)}> - </button>
       <span># of tiles in row: {tileNum} </span>
       <button onClick={() => setTileNum(state => state += 1)}> + </button>
@@ -71,7 +103,7 @@ function App() {
         ifStarted={ifStarted}
         timer={timer}
       />
-    </div>
+    </Provider>
   );
 }
 
