@@ -129,8 +129,8 @@ export default function Grid(props) {
         key={index}
         column={index}
         tiles={column}
-        setGrid={setGrid}
-        grid={grid}
+        // setGrid={setGrid}
+        // grid={grid}
         square={props.tileNum}
         // setAlive={setAlive}
         // setDead={setDead}
@@ -148,12 +148,12 @@ export default function Grid(props) {
     </ul>
   )
 }
-const mapStateToProps = (state) => ({
-  aliveCount: state.aliveCount,
-  timer: state.timer,
-  tileNum: state.tileNum,
-  ifStarted: state.ifStarted,
-  grid: state.grid
-})
+// const mapStateToProps = (state) => ({
+//   aliveCount: state.aliveCount,
+//   timer: state.timer,
+//   tileNum: state.tileNum,
+//   ifStarted: state.ifStarted,
+//   grid: state.grid
+// })
 
 // export default connect(mapStateToProps) (Grid)
