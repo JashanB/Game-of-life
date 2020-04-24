@@ -10,6 +10,9 @@ export default function TileColumn(props) {
         row={index}
         column={props.column}
         status={tile.isAlive}
+        setAlive={props.setAlive}
+        rules={props.rules}
+        setDead={props.setDead}
         max={props.max}
         ifStarted={props.ifStarted}
         timer={props.timer}

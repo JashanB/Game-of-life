@@ -11,9 +11,9 @@ function App(props) {
   const handleStart = () => {
     if (props.aliveCount >= 5) {
       if (props.ifStarted) {
-        dispatch({type: "STOP"})
+        props.dispatch({type: "STOP"})
       } else {
-        dispatch({type: "START"})
+        props.dispatch({type: "START"})
       }
     }
   }

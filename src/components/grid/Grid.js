@@ -3,23 +3,8 @@ import './Grid.css'
 import TileColumn from '../tilecolumn'
 import { connect } from 'react-redux';
 
-export default function Grid(props) {
-  // const [grid, setGrid] = useState({});
-
-  // useEffect(() => {
-  //   let obj = {};
-  //   for (let i = 0; i < props.tileNum; i++) {
-  //     obj[i] = [];
-  //     for (let z = 0; z < props.tileNum; z++) {
-  //       obj[i].push({
-  //         isAlive: false,
-  //         index: z
-  //       })
-  //     }
-  //   }
-  //   setGrid(state => (obj))
-  // }, [props.tileNum])
-  console.log('grid props', props)
+function Grid(props) {
+  //use effect to set grid size based on # of tiles in row buttons
   useEffect(() => {
     let obj = {};
     for (let i = 0; i < props.tileNum; i++) {
@@ -33,58 +18,29 @@ export default function Grid(props) {
     }
     props.dispatch({type: "SETGRID", grid: obj})
   }, [props.tileNum])
-
+    //sets tile status to alive and increases alive count - called when rules dictate cell to be alive
   const setAlive = (column, index) => {
-    let columnArray = props.state.grid[column];
+    let columnArray = props.grid[column];
     if (columnArray[index].isAlive === false) {
       columnArray[index].isAlive = true;
       props.dispatch({type: "CHANGEGRID", column: {[column]: columnArray}})
-      // setGrid(state => ({ ...state, [column]: columnArray }))
       if (props.aliveCount < (props.tileNum * props.tileNum)) {
         props.dispatch({type: "SETALIVE"})
-        // props.setAliveCount(state => state += 1)
       }
     }
   }
-
+  //sets tile status to dead and decreases alive count - called when rules dictate cell death
   const setDead = (column, index) => {
     let columnArray = props.grid[column];
     if (columnArray[index].isAlive) {
       columnArray[index].isAlive = false;
       props.dispatch({type: "CHANGEGRID", column: {[column]: columnArray}})
-      // setGrid(state => ({ ...state, [column]: columnArray }))
       if (props.aliveCount > 0) {
         props.dispatch({type: "SETDEAD"})
-        // props.setAliveCount(state => state -= 1)
       }
     }
   }
-
-  // const countBox = (column, row, bordering) => {
-  //   let count = 0;
-  //   for (let i = row - 1; i < row + 2; i++) {
-  //     if (bordering === 8) {
-  //       grid[column - 1][i].isAlive ? count += 1 : count += 0
-  //       if (i !== row) {
-  //         grid[column][i].isAlive ? count += 1 : count += 0
-  //       }
-  //       grid[column + 1][i].isAlive ? count += 1 : count += 0
-  //     } else if (bordering <= 5) {
-  //       if (grid[column - 1] && grid[column - 1][i] && grid[column - 1][i].isAlive) {
-  //         count += 1;
-  //       }
-  //       if (i !== row) {
-  //         if (grid[column][i] && grid[column][i].isAlive) {
-  //           count += 1;
-  //         }
-  //       }
-  //       if (grid[column + 1] && grid[column + 1][i] && grid[column + 1][i].isAlive) {
-  //         count += 1;
-  //       }
-  //     }
-  //   }
-  //   return count;
-  // };
+  //counts in a square around each tile, checks to see if on edge/corner
   const countBox = (column, row, bordering) => {
     let count = 0;
     for (let i = row - 1; i < row + 2; i++) {
@@ -110,7 +66,7 @@ export default function Grid(props) {
     }
     return count;
   }
-
+  //applies rues of life to each tile
   const rules = (timer, col, index, bordering, status) => {
     let numberAlive = countBox(col, index, bordering);
       if (numberAlive < 2 && numberAlive >= 0 && status === true) {
@@ -123,17 +79,16 @@ export default function Grid(props) {
         setAlive(col, index);
       }
   }
+  //creates tile column based on each values array of grid 
   const tilecolumns = Object.values(props.grid).map(function (column, index) {
     return (
       <TileColumn
         key={index}
         column={index}
         tiles={column}
-        // setGrid={setGrid}
-        // grid={grid}
         square={props.tileNum}
-        // setAlive={setAlive}
-        // setDead={setDead}
+        setAlive={setAlive}
+        setDead={setDead}
         max={props.tileNum - 1}
         ifStarted={props.ifStarted}
         countBox={countBox}
@@ -148,12 +103,7 @@ export default function Grid(props) {
     </ul>
   )
 }
-// const mapStateToProps = (state) => ({
-//   aliveCount: state.aliveCount,
-//   timer: state.timer,
-//   tileNum: state.tileNum,
-//   ifStarted: state.ifStarted,
-//   grid: state.grid
-// })
+//just need dispatch
+const mapStateToProps = () => ({})
 
-// export default connect(mapStateToProps) (Grid)
+export default connect(mapStateToProps) (Grid)
