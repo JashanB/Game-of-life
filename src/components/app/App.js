@@ -7,9 +7,9 @@ import { dispatch } from 'rxjs/internal/observable/range';
 import { connect } from 'react-redux';
 
 let obj = {};
-for (let i = 0; i < initialState.tileNum; i++) {
+for (let i = 0; i < 25; i++) {
   obj[i] = [];
-  for (let z = 0; z < initialState.tileNum; z++) {
+  for (let z = 0; z <  25; z++) {
     obj[i].push({
       isAlive: false,
       index: z
@@ -77,20 +77,20 @@ function App(props) {
   // const [ifStarted, setIfStarted] = useState(false);
   console.log('app props', props)
   const handleStart = () => {
-    if (props.aliveCount >= 5) {
+    if (aliveCount >= 5) {
       if (props.ifStarted) {
         dispatch({type: "STOP"})
-        setIfStarted(state => (false));
+        // setIfStarted(state => (false));
       } else {
         dispatch({type: "START"})
-        setIfStarted(state => (true));
+        // setIfStarted(state => (true));
       }
     }
   }
   useEffect(() => {
-    if (props.aliveCount <= 0) {
+    if (aliveCount <= 0) {
       props.dispatch({type: "STOP"})
-      setIfStarted(state => (false));
+      // setIfStarted(state => (false));
     }
   }, [aliveCount])
 
@@ -127,12 +127,12 @@ function App(props) {
       <button onClick={() => handleStart()}>Start!</button>
       <span>Number Alive: {props.state.aliveCount}</span>
       <Grid
-        // tileNum={tileNum}
+        tileNum={tileNum}
         // setTileNum={setTileNum}
-        // aliveCount={aliveCount}
+        aliveCount={aliveCount}
         // setAliveCount={setAliveCount}
-        // ifStarted={ifStarted}
-        // timer={timer}
+        ifStarted={ifStarted}
+        timer={timer}
       />
     </Provider>
   );

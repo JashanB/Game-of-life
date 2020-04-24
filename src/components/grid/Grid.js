@@ -3,7 +3,7 @@ import './Grid.css'
 import TileColumn from '../tilecolumn'
 import { connect } from 'react-redux';
 
-function Grid(props) {
+export default function Grid(props) {
   // const [grid, setGrid] = useState({});
 
   // useEffect(() => {
@@ -123,7 +123,7 @@ function Grid(props) {
         setAlive(col, index);
       }
   }
-  const tilecolumns = Object.values(grid).map(function (column, index) {
+  const tilecolumns = Object.values(props.grid).map(function (column, index) {
     return (
       <TileColumn
         key={index}
@@ -132,8 +132,8 @@ function Grid(props) {
         setGrid={setGrid}
         grid={grid}
         square={props.tileNum}
-        setAlive={setAlive}
-        setDead={setDead}
+        // setAlive={setAlive}
+        // setDead={setDead}
         max={props.tileNum - 1}
         ifStarted={props.ifStarted}
         countBox={countBox}
@@ -156,4 +156,4 @@ const mapStateToProps = (state) => ({
   grid: state.grid
 })
 
-export default connect(mapStateToProps) (Grid)
+// export default connect(mapStateToProps) (Grid)
