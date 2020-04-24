@@ -22,9 +22,9 @@ export default function Grid(props) {
   console.log('grid props', props)
   useEffect(() => {
     let obj = {};
-    for (let i = 0; i < props.state.tileNum; i++) {
+    for (let i = 0; i < props.tileNum; i++) {
       obj[i] = [];
-      for (let z = 0; z < props.state.tileNum; z++) {
+      for (let z = 0; z < props.tileNum; z++) {
         obj[i].push({
           isAlive: false,
           index: z
@@ -32,7 +32,7 @@ export default function Grid(props) {
       }
     }
     props.dispatch({type: "SETGRID", grid: obj})
-  }, [props.state.tileNum])
+  }, [props.tileNum])
 
   const setAlive = (column, index) => {
     let columnArray = props.state.grid[column];
@@ -89,21 +89,21 @@ export default function Grid(props) {
     let count = 0;
     for (let i = row - 1; i < row + 2; i++) {
       if (bordering === 8) {
-        props.state.grid[column - 1][i].isAlive ? count += 1 : count += 0
+        props.grid[column - 1][i].isAlive ? count += 1 : count += 0
         if (i !== row) {
-          props.state.grid[column][i].isAlive ? count += 1 : count += 0
+          props.grid[column][i].isAlive ? count += 1 : count += 0
         }
-        props.state.grid[column + 1][i].isAlive ? count += 1 : count += 0
+        props.grid[column + 1][i].isAlive ? count += 1 : count += 0
       } else if (bordering <= 5) {
-        if (props.state.grid[column - 1] && props.state.grid[column - 1][i] && props.state.grid[column - 1][i].isAlive) {
+        if (props.grid[column - 1] && props.grid[column - 1][i] && props.grid[column - 1][i].isAlive) {
           count += 1;
         }
         if (i !== row) {
-          if (props.state.grid[column][i] && props.state.grid[column][i].isAlive) {
+          if (props.grid[column][i] && props.grid[column][i].isAlive) {
             count += 1;
           }
         }
-        if (props.state.grid[column + 1] && props.state.grid[column + 1][i] && props.state.grid[column + 1][i].isAlive) {
+        if (props.grid[column + 1] && props.grid[column + 1][i] && props.grid[column + 1][i].isAlive) {
           count += 1;
         }
       }
