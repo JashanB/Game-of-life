@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 let obj = {};
 for (let i = 0; i < 25; i++) {
   obj[i] = [];
-  for (let z = 0; z <  25; z++) {
+  for (let z = 0; z < 25; z++) {
     obj[i].push({
       isAlive: false,
       index: z
@@ -63,22 +63,24 @@ function reducer(state = initialState, action) {
       };
     case "CHANGEGRID":
       return {
-        ...state, grid: {...state.grid, ...action.column}
+        ...state, grid: { ...state.grid, ...action.column }
       }
     case "SETGRID":
       return {
         ...state, grid: action.grid
       }
+    default: 
+      return state;
   }
 }
 const store = createStore(reducer);
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
-    <App />
-  </Provider>
-  </React.StrictMode>,
+      <App />
+    </Provider>,
+  // </React.StrictMode>
   document.getElementById('root')
 );
 
