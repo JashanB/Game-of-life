@@ -26,9 +26,9 @@ function App(props) {
       <button onClick={() => props.dispatch({type: "MINUSTILE"})}> - </button>
       <span># of tiles in row: {props.tileNum} </span>
       <button onClick={() => props.dispatch({type: "PLUSTILE"})}> + </button>
-      <button onClick={() => props.dispatch({type: "MINUSTIME"})}> - </button>
+      {/* <button onClick={() => props.dispatch({type: "MINUSTIME"})}> - </button>
       <span>Timer: {props.timer} sec </span>
-      <button onClick={() => props.dispatch({type: "PLUSTIME"})}> + </button>
+      <button onClick={() => props.dispatch({type: "PLUSTIME"})}> + </button> */}
       <button onClick={() => handleStart()}>Start!</button>
       <span>Number Alive: {props.aliveCount}</span>
       </div>

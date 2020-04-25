@@ -12,13 +12,11 @@
 .tile-button {
   height: 100%;
   width: 100%;
-  /* background-color: red; */
-  background-color: #190061;
+  background-color: #0C0032;
 }
 
 .tile-button-alive {
   height: 100%;
   width: 100%;
-  /* background-color: blue; */
   background-color: #3500D3;
 } 
