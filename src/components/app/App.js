@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './App.css';
 import Grid from '../grid';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { dispatch } from 'rxjs/internal/observable/range';
 import { connect } from 'react-redux';
 
 function App(props) { 

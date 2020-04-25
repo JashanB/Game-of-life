@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './Grid.css'
 import TileColumn from '../tilecolumn'
 import { connect } from 'react-redux';
@@ -98,9 +98,9 @@ function Grid(props) {
     )
   })
   return (
-    <ul className="grid-container">
+    <li className="grid-container">
       {tilecolumns}
-    </ul>
+    </li>
   )
 }
 //just need dispatch

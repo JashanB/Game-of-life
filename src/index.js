@@ -5,8 +5,6 @@ import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { dispatch } from 'rxjs/internal/observable/range';
-import { connect } from 'react-redux';
 
 let obj = {};
 for (let i = 0; i < 25; i++) {
@@ -20,7 +18,7 @@ for (let i = 0; i < 25; i++) {
 }
 
 const initialState = {
-  tileNum: 25,
+  tileNum: 35,
   timer: 3,
   aliveCount: 0,
   ifStarted: false,
