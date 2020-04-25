@@ -1,4 +1,5 @@
-.tile-column {
-  width: 25%;
-  height: 25%;
+ .tile-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

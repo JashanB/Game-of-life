@@ -25,6 +25,7 @@ function App(props) {
 
   return (
     <div className="App">
+      <div className="heading">
       <button onClick={() => props.dispatch({type: "MINUSTILE"})}> - </button>
       <span># of tiles in row: {props.tileNum} </span>
       <button onClick={() => props.dispatch({type: "PLUSTILE"})}> + </button>
@@ -33,6 +34,7 @@ function App(props) {
       <button onClick={() => props.dispatch({type: "PLUSTIME"})}> + </button>
       <button onClick={() => handleStart()}>Start!</button>
       <span>Number Alive: {props.aliveCount}</span>
+      </div>
       <Grid
         tileNum={props.tileNum}
         aliveCount={props.aliveCount}

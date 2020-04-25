@@ -2,10 +2,10 @@ import React from 'react'
 import './Tile.css'
 
 export default function Tile(props) {
-  let className = "tile";
+  let className = "tile-button";
   if (props.status) {
     className += '-alive';
-  };
+  }
   let borderingSquares = 8
   let col = props.column
   let row = props.row
