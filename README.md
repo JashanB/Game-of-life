@@ -1,6 +1,8 @@
-## Game of Life
+# Game of Life
 
 Select a minimum of 5 tiles and click Start.
+
+## Rules
 
 1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.
 
